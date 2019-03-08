@@ -8,7 +8,7 @@ A server application that provides a queue of pets to adopt
 * Run npm start to start up the server
 ## Endpoints
 ### cat endpoint
-* Petful server provides a queue of cats at /api/cats
+* Petful server provides a queue of cats at /api/cat
 * Example request: GET to localhost:8080/api/cat
 * Example response: {
     "imageURL": "https://assets3.thrillist.com/v1/image/2622128/size/tmg-slideshow_l.jpg",
@@ -21,7 +21,7 @@ A server application that provides a queue of pets to adopt
 }
 
 ### dog endpoint 
-* Petful server provides a queue of dogs at /api/cat
+* Petful server provides a queue of dogs at /api/dog
 * Example request: GET to localhost:8080/api/dog
 * Example response: {
     *"imageURL": "https://assets3.thrillist.com/v1/image/2622128/size/tmg-slideshow_l.jpg",
