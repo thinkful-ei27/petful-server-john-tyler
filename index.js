@@ -12,7 +12,7 @@ const {Queue, display} = require('./queue');
 
 let cats = [
   {
-    imageURL:'https://assets3.thrillist.com/v1/image/2622128/size/tmg-slideshow_l.jpg', 
+    imageURL:'https://www.dailydot.com/wp-content/uploads/2018/10/olli-the-polite-cat.jpg', 
     imageDescription: 'Orange bengal cat with black stripes lounging on concrete.',
     name: 'Hopper',
     sex: 'Female',
@@ -30,7 +30,7 @@ let cats = [
     story: 'Clawed owner in the face'
   },
   {
-    imageURL:'https://assets3.thrillist.com/v1/image/2622128/size/tmg-slideshow_l.jpg', 
+    imageURL:'https://cdn.pixabay.com/photo/2017/02/20/18/03/cat-2083492_960_720.jpg', 
     imageDescription: 'Aegean cat with black stripes lounging on concrete.',
     name: 'Duffy',
     sex: 'Female',
@@ -52,7 +52,7 @@ let dogs = [
     story: 'Owner Passed away'
   },
   {
-    imageURL: 'http://www.dogster.com/wp-content/uploads/2015/05/Cute%20dog%20listening%20to%20music%201_1.jpg',
+    imageURL: 'https://www.dogster.com/wp-content/uploads/2018/10/puppy-chewing-on-ball.jpg',
     imageDescription: 'A smiling golden-brown golden retreiver listening to music.',
     name: 'Watson',
     sex: 'Male',
@@ -61,7 +61,7 @@ let dogs = [
     story: 'Too alpha for other dogs'
   },
   {
-    imageURL: 'http://www.dogster.com/wp-content/uploads/2015/05/Cute%20dog%20listening%20to%20music%201_1.jpg',
+    imageURL: 'https://www.dogster.com/wp-content/uploads/2017/12/A-puppy-with-a-toy.jpg',
     imageDescription: 'A smiling golden-brown golden retreiver listening to music.',
     name: 'Athena',
     sex: 'Female',
