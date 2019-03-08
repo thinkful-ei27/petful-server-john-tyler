@@ -12,7 +12,7 @@ let cats = [
   {
     imageURL:'https://assets3.thrillist.com/v1/image/2622128/size/tmg-slideshow_l.jpg', 
     imageDescription: 'Orange bengal cat with black stripes lounging on concrete.',
-    name: 'Fluffy',
+    name: 'Hopper',
     sex: 'Female',
     age: 2,
     breed: 'Bengal',
@@ -21,7 +21,7 @@ let cats = [
   {
     imageURL:'https://assets3.thrillist.com/v1/image/2622128/size/tmg-slideshow_l.jpg', 
     imageDescription: 'Orange bengal cat with black stripes lounging on concrete.',
-    name: 'Scruffy',
+    name: 'Ripley',
     sex: 'Male',
     age: 1,
     breed: 'Calico',
@@ -52,7 +52,7 @@ let dogs = [
   {
     imageURL: 'http://www.dogster.com/wp-content/uploads/2015/05/Cute%20dog%20listening%20to%20music%201_1.jpg',
     imageDescription: 'A smiling golden-brown golden retreiver listening to music.',
-    name: 'Apollo',
+    name: 'Watson',
     sex: 'Male',
     age: 3,
     breed: 'Rottweiler',
@@ -84,19 +84,6 @@ app.use(
   })
 );
 
-function tryDelete(callback) {
-  try {
-    const removeCat = cats.shift();
-    if (!removeCat) {
-      return callback(null, null);
-    } else {
-      return callback(null, removeCat);
-    }
-  } catch (err) {
-    callback(err);
-  }
-}
-
 // Cat Routes
 app.get('/api/cat', (req, res, next) => {
   const cat = cats[0];
@@ -107,6 +94,7 @@ app.delete('/api/cat', (req, res, next) => {
   const tryDelete = async () => {
     try {
       const cat = await cats.shift();
+      console.log(`${cat} was adopted!`);
       res.status(204).end();
     } catch (err) {
       return next(err);
@@ -120,6 +108,20 @@ app.delete('/api/cat', (req, res, next) => {
 app.get('/api/dog', (req, res, next) => {
   const dog = dogs[0];
   res.json(dog);
+});
+
+app.delete('/api/dog', (req, res, next) => {
+  const tryDelete = async () => {
+    try {
+      const dog = await dogs.shift();
+      console.log(`${dog} was adopted!`);
+      res.status(204).json(dog).end();
+    } catch (err) {
+      return next(err);
+    }
+  }
+
+  tryDelete();
 });
 
 function runServer(port = PORT) {
