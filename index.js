@@ -96,14 +96,13 @@ app.use(
 
 // Cat Routes
 app.get('/api/cat', (req, res, next) => {
-  const cat = catQ.peek();
-  console.log(cat);
-  if (cat === null) {
+  if (catQ.first === null) {
     res.json({
       value: 'All cats have been adopted!'
     })
     next();
   } else {
+    const cat = catQ.peek();
     res.json(cat);
   }
 });
@@ -124,8 +123,15 @@ app.delete('/api/cat', (req, res, next) => {
 
 // Dog Routes
 app.get('/api/dog', (req, res, next) => {
-  const dog = dogQ.peek();
-  res.json(dog);
+  if (dogQ.first === null) {
+    res.json({
+      value: 'All dogs have been adopted!'
+    })
+    next();
+  } else {
+    const dog = dogQ.peek();
+    res.json(dog);
+  }
 });
 
 app.delete('/api/dog', (req, res, next) => {
