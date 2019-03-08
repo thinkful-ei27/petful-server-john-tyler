@@ -88,11 +88,13 @@ app.use(
   })
 );
 
-app.use(
-  cors({
-    origin: CLIENT_ORIGIN
-  })
-);
+app.use(cors())
+
+// app.use(
+//   cors({
+//     origin: CLIENT_ORIGIN
+//   })
+// );
 
 // Cat Routes
 app.get('/api/cat', (req, res, next) => {
