@@ -8,6 +8,68 @@ const { PORT, CLIENT_ORIGIN } = require('./config');
 const { dbConnect } = require('./db-mongoose');
 // const {dbConnect} = require('./db-knex');
 
+let cats = [
+  {
+    imageURL:'https://assets3.thrillist.com/v1/image/2622128/size/tmg-slideshow_l.jpg', 
+    imageDescription: 'Orange bengal cat with black stripes lounging on concrete.',
+    name: 'Fluffy',
+    sex: 'Female',
+    age: 2,
+    breed: 'Bengal',
+    story: 'Thrown on the street'
+  },
+  {
+    imageURL:'https://assets3.thrillist.com/v1/image/2622128/size/tmg-slideshow_l.jpg', 
+    imageDescription: 'Orange bengal cat with black stripes lounging on concrete.',
+    name: 'Scruffy',
+    sex: 'Male',
+    age: 1,
+    breed: 'Calico',
+    story: 'Clawed owner in the face'
+  },
+  {
+    imageURL:'https://assets3.thrillist.com/v1/image/2622128/size/tmg-slideshow_l.jpg', 
+    imageDescription: 'Aegean cat with black stripes lounging on concrete.',
+    name: 'Duffy',
+    sex: 'Female',
+    age: 5,
+    breed: 'Aegean',
+    story: 'Drank too much milk'
+  }
+];
+cats = cats.sort((a, b) => a.age < b.age);
+
+let dogs = [
+  {
+    imageURL: 'http://www.dogster.com/wp-content/uploads/2015/05/Cute%20dog%20listening%20to%20music%201_1.jpg',
+    imageDescription: 'A smiling golden-brown golden retreiver listening to music.',
+    name: 'Zeus',
+    sex: 'Male',
+    age: 1,
+    breed: 'Golden Retriever',
+    story: 'Owner Passed away'
+  },
+  {
+    imageURL: 'http://www.dogster.com/wp-content/uploads/2015/05/Cute%20dog%20listening%20to%20music%201_1.jpg',
+    imageDescription: 'A smiling golden-brown golden retreiver listening to music.',
+    name: 'Apollo',
+    sex: 'Male',
+    age: 3,
+    breed: 'Rottweiler',
+    story: 'Too alpha for other dogs'
+  },
+  {
+    imageURL: 'http://www.dogster.com/wp-content/uploads/2015/05/Cute%20dog%20listening%20to%20music%201_1.jpg',
+    imageDescription: 'A smiling golden-brown golden retreiver listening to music.',
+    name: 'Athena',
+    sex: 'Female',
+    age: 10,
+    breed: 'Poodle',
+    story: 'Decided to be more independent'
+  }
+];
+dogs = dogs.sort((a, b) => a.age < b.age);
+
 const app = express();
 
 app.use(
@@ -21,6 +83,44 @@ app.use(
     origin: CLIENT_ORIGIN
   })
 );
+
+function tryDelete(callback) {
+  try {
+    const removeCat = cats.shift();
+    if (!removeCat) {
+      return callback(null, null);
+    } else {
+      return callback(null, removeCat);
+    }
+  } catch (err) {
+    callback(err);
+  }
+}
+
+// Cat Routes
+app.get('/api/cat', (req, res, next) => {
+  const cat = cats[0];
+  res.json(cat);
+});
+
+app.delete('/api/cat', (req, res, next) => {
+  const tryDelete = async () => {
+    try {
+      const cat = await cats.shift();
+      res.status(204).end();
+    } catch (err) {
+      return next(err);
+    }
+  }
+
+  tryDelete();
+});
+
+// Dog Routes
+app.get('/api/dog', (req, res, next) => {
+  const dog = dogs[0];
+  res.json(dog);
+});
 
 function runServer(port = PORT) {
   const server = app
