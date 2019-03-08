@@ -8,6 +8,8 @@ const { PORT, CLIENT_ORIGIN } = require('./config');
 const { dbConnect } = require('./db-mongoose');
 // const {dbConnect} = require('./db-knex');
 
+const {Queue, display} = require('./queue');
+
 let cats = [
   {
     imageURL:'https://assets3.thrillist.com/v1/image/2622128/size/tmg-slideshow_l.jpg', 
@@ -70,6 +72,14 @@ let dogs = [
 ];
 dogs = dogs.sort((a, b) => a.age < b.age);
 
+// Create a Queue data structure for both cats and dogs
+const catQ = new Queue;
+const dogQ = new Queue;
+
+cats.forEach(cat => catQ.enqueue(cat))
+dogs.forEach(dog => dogQ.enqueue(dog))
+
+// Start app functionality
 const app = express();
 
 app.use(
@@ -86,14 +96,22 @@ app.use(
 
 // Cat Routes
 app.get('/api/cat', (req, res, next) => {
-  const cat = cats[0];
-  res.json(cat);
+  const cat = catQ.peek();
+  console.log(cat);
+  if (cat === null) {
+    res.json({
+      value: 'All cats have been adopted!'
+    })
+    next();
+  } else {
+    res.json(cat);
+  }
 });
 
 app.delete('/api/cat', (req, res, next) => {
   const tryDelete = async () => {
     try {
-      const cat = await cats.shift();
+      const cat = await catQ.dequeue();
       console.log(`${cat} was adopted!`);
       res.status(204).end();
     } catch (err) {
@@ -106,14 +124,14 @@ app.delete('/api/cat', (req, res, next) => {
 
 // Dog Routes
 app.get('/api/dog', (req, res, next) => {
-  const dog = dogs[0];
+  const dog = dogQ.peek();
   res.json(dog);
 });
 
 app.delete('/api/dog', (req, res, next) => {
   const tryDelete = async () => {
     try {
-      const dog = await dogs.shift();
+      const dog = await dogQ.dequeue();
       console.log(`${dog} was adopted!`);
       res.status(204).json(dog).end();
     } catch (err) {
@@ -123,6 +141,16 @@ app.delete('/api/dog', (req, res, next) => {
 
   tryDelete();
 });
+
+// Custom Error Handler
+app.use((err, req, res, next) => {
+  if (err.status) {
+    const errBody = Object.assign({}, err, { message: err.message });
+    res.status(err.status).json(errBody);
+  } else {
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+})
 
 function runServer(port = PORT) {
   const server = app
