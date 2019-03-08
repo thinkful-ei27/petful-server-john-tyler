@@ -6,6 +6,8 @@ A server application that provides a queue of pets to adopt
 * Clone this repo
 * Run npm install
 * Run npm start to start up the server
+## Server live at 
+* http://petful-john-tyler-server.herokuapp.com/
 ## Endpoints
 ### cat endpoint
 * Petful server provides a queue of cats at /api/cat
