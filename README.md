@@ -3,14 +3,14 @@
 A server application that provides a queue of pets to adopt
 
 ## Getting started
-clone this repo
-run npm install
-Run npm start to start up the server
+* Clone this repo
+* Run npm install
+* Run npm start to start up the server
 ## Endpoints
 ### cat endpoint
-Petful server provides a queue of cats at /api/cats
-Example request: GET to localhost:8080/api/cat
-example response: {
+* Petful server provides a queue of cats at /api/cats
+* Example request: GET to localhost:8080/api/cat
+* Example response: {
     "imageURL": "https://assets3.thrillist.com/v1/image/2622128/size/tmg-slideshow_l.jpg",
     "imageDescription": "Orange bengal cat with black stripes lounging on concrete.",
     "name": "Hopper",
@@ -21,16 +21,16 @@ example response: {
 }
 
 ### dog endpoint 
-Petful server provides a queue of dogs at /api/cat
-Example request: GET to localhost:8080/api/dog
-example response: {
-    "imageURL": "https://assets3.thrillist.com/v1/image/2622128/size/tmg-slideshow_l.jpg",
-    "imageDescription": "cut lab"
-    "name": "Hopper",
-    "sex": "Female",
-    "age": 2,
-    "breed": "lab",
-    "story": "Thrown on the street"
+* Petful server provides a queue of dogs at /api/cat
+* Example request: GET to localhost:8080/api/dog
+* Example response: {
+    *"imageURL": "https://assets3.thrillist.com/v1/image/2622128/size/tmg-slideshow_l.jpg",
+    *"imageDescription": "cut lab"
+    *"name": "Hopper",
+    *"sex": "Female",
+    *"age": 2,
+    *"breed": "lab",
+    *"story": "Thrown on the street"
 }
 
 ### Working on the project
